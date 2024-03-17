@@ -2,11 +2,14 @@ package com.example.mobileappssemester2app2.pojo;
 
 import java.util.Date;
 
+
 public class WeatherRecord {
     private Date date;
     private double humidity;
     private double temperature;
     private double windspeed;
+
+    public WeatherRecord(){}
 
     public WeatherRecord(Date date, double humidity, double temperature, double windspeed) {
         this.date = date;
