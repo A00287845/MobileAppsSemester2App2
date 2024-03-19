@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import com.example.mobileappssemester2app2.pojo.WeatherRecord;
 
 public class WeatherPreferences {
@@ -18,20 +19,20 @@ public class WeatherPreferences {
         gson = new Gson();
     }
 
-    public void saveWeatherRecords(WeatherRecord[] weatherRecords) {
+    public void saveWeatherRecords(ArrayList<WeatherRecord> weatherRecords) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         String json = gson.toJson(weatherRecords);
         editor.putString(WEATHER_RECORDS_KEY, json);
         editor.apply();
     }
 
-    public WeatherRecord[] loadWeatherRecords() {
+    public ArrayList<WeatherRecord> loadWeatherRecords() {
         String json = sharedPreferences.getString(WEATHER_RECORDS_KEY, null);
         if (json == null) {
-            return new WeatherRecord[0];
+            return new ArrayList<WeatherRecord>();
         } else {
-            Type weatherRecordArrayType = new TypeToken<WeatherRecord[]>() {}.getType();
-            return gson.fromJson(json, weatherRecordArrayType); // Deserialize the JSON back into an array
+            Type weatherRecordListType = new TypeToken<ArrayList<WeatherRecord>>() {}.getType();
+            return gson.fromJson(json, weatherRecordListType);
         }
     }
 }

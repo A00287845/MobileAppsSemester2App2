@@ -1,6 +1,7 @@
 package com.example.mobileappssemester2app2;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.work.Constraints;
 import androidx.work.NetworkType;
@@ -13,9 +14,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Button;
 
 import com.example.mobileappssemester2app2.pojo.WeatherRecord;
 import com.example.mobileappssemester2app2.util.WeatherPreferences;
+import com.example.mobileappssemester2app2.util.WeatherRecordsViewModel;
 import com.example.mobileappssemester2app2.util.WeatherWorker;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -29,20 +33,25 @@ import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
-    private WeatherRecord[] weatherRecords;
-    private ArrayList<WeatherRecord> weatherRecordList;
+    private ArrayList<WeatherRecord> weatherRecords;
+    private WeatherRecordsViewModel viewModel;
+
     private final BroadcastReceiver weatherReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             String jsonData = intent.getStringExtra("weather_data");
-            if(jsonData != null){
+            if (jsonData != null) {
                 GsonBuilder builder = new GsonBuilder();
 
                 JsonDeserializer<WeatherRecord> deserializer = getDeserializer();
                 builder.registerTypeAdapter(WeatherRecord.class, deserializer);
 
                 Gson gson = builder.create();
-                WeatherRecord record = gson.fromJson(jsonData, WeatherRecord.class);
+                WeatherRecord receivedRecord = gson.fromJson(jsonData, WeatherRecord.class);
+                Log.d("EOGHAN", "onReceive: weather received MAIN " + receivedRecord);
+                weatherRecords.add(receivedRecord);
+                new WeatherPreferences(MainActivity.this).saveWeatherRecords(weatherRecords);
+                viewModel.setRecords(weatherRecords);
             }
         }
 
@@ -69,18 +78,28 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("Eoghan", "onCreate: MAIN");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        viewModel = new ViewModelProvider(this).get(WeatherRecordsViewModel.class);
+
         weatherRecords = new WeatherPreferences(this).loadWeatherRecords();
 
-        PeriodicWorkRequest weatherRequest = new PeriodicWorkRequest.Builder(WeatherWorker.class, 15, TimeUnit.MINUTES)
-                .setConstraints(new Constraints.Builder()
-                        .setRequiresCharging(false)
-                        .setRequiredNetworkType(NetworkType.UNMETERED)
-                        .build())
-                .build();
+        Log.d("EOGHAN", "onCreate: setting records init with " + weatherRecords);
+        viewModel.setRecords(weatherRecords);
+
+        PeriodicWorkRequest weatherRequest = new PeriodicWorkRequest.Builder(WeatherWorker.class, 15, TimeUnit.MINUTES).setConstraints(new Constraints.Builder().setRequiresCharging(false).setRequiredNetworkType(NetworkType.UNMETERED).build()).build();
         WorkManager.getInstance(this).enqueue(weatherRequest);
+
+        Button buttonA = findViewById(R.id.buttonA);
+        Button buttonB = findViewById(R.id.buttonB);
+
+        buttonA.setOnClickListener(v -> getSupportFragmentManager().beginTransaction().replace(R.id.contentLayout, new PartA()).commit());
+
+        buttonB.setOnClickListener(v -> getSupportFragmentManager().beginTransaction().replace(R.id.contentLayout, new PartB()).commit());
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.contentLayout, new PartA()).commit();
     }
 
     @Override

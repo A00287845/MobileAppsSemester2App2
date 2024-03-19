@@ -80,7 +80,7 @@ public class WeatherWorker extends Worker {
         Call<ResponseBody> getForecast(
                 @Query("latitude") double latitude,
                 @Query("longitude") double longitude,
-                @Query("current") String currentParameters // Updated parameter to match the new URL structure
+                @Query("current") String currentParameters
         );
     }
 }
