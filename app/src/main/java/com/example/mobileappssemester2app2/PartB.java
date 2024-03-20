@@ -31,7 +31,7 @@ public class PartB extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.d("EOGHAN", "onCreateView: Partb");
-        View view = inflater.inflate(R.layout.fragment_part_a, container, false);
+        View view = inflater.inflate(R.layout.fragment_part_b, container, false);
         viewModel = new ViewModelProvider(requireActivity()).get(WeatherRecordsViewModel.class);
 
         viewModel.getWeatherRecordsLiveData().observe(getViewLifecycleOwner(), buttons -> {

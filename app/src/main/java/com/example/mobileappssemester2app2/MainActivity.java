@@ -29,29 +29,39 @@ import com.google.gson.JsonObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ArrayList<WeatherRecord> weatherRecords;
     private WeatherRecordsViewModel viewModel;
 
     private final BroadcastReceiver weatherReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            Log.d("EOGHAN", "MainActivity onReceive()");
             String jsonData = intent.getStringExtra("weather_data");
             if (jsonData != null) {
                 GsonBuilder builder = new GsonBuilder();
-
                 JsonDeserializer<WeatherRecord> deserializer = getDeserializer();
                 builder.registerTypeAdapter(WeatherRecord.class, deserializer);
-
                 Gson gson = builder.create();
                 WeatherRecord receivedRecord = gson.fromJson(jsonData, WeatherRecord.class);
-                Log.d("EOGHAN", "onReceive: weather received MAIN " + receivedRecord);
-                weatherRecords.add(receivedRecord);
-                new WeatherPreferences(MainActivity.this).saveWeatherRecords(weatherRecords);
-                viewModel.setRecords(weatherRecords);
+                Log.d("EOGHAN", "MainActivity onReceive: weather received MAIN " + receivedRecord);
+
+                ArrayList<WeatherRecord> records = viewModel.getWeatherRecordsLiveData().getValue();
+                assert records != null;
+                String logMessage;
+                if (records.isEmpty() || !receivedRecord.getDate().equals(records.get(records.size() - 1).getDate())) {
+                    logMessage = records.isEmpty() ? "ARRAY IS EMPTY" : "THEY DO NOT EQUAL";
+                    Log.d("EOGHAN", "onReceive: view model? "+viewModel.getApplication() + " message " + logMessage);
+                    viewModel.addRecord(receivedRecord);
+                } else {
+                    logMessage = "THEY DO EQUAL";
+                    Log.d("EOGHAN", "onReceive: " + logMessage);
+
+                }
+
             }
         }
 
@@ -64,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm").parse(current.get("time").getAsString());
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    Log.e("EOGHAN", "getDeserializer: date parse error", e);;
                 }
 
                 double humidity = current.get("relativehumidity_2m").getAsDouble();
@@ -78,16 +88,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("Eoghan", "onCreate: MAIN");
+        Log.d("Eoghan", "MainActivity onCreate: MAIN");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         viewModel = new ViewModelProvider(this).get(WeatherRecordsViewModel.class);
 
-        weatherRecords = new WeatherPreferences(this).loadWeatherRecords();
-
-        Log.d("EOGHAN", "onCreate: setting records init with " + weatherRecords);
-        viewModel.setRecords(weatherRecords);
+        Log.d("EOGHAN", "MainActivity onCreate: setting records init with " + viewModel.getWeatherRecordsLiveData().getValue());
 
         PeriodicWorkRequest weatherRequest = new PeriodicWorkRequest.Builder(WeatherWorker.class, 15, TimeUnit.MINUTES).setConstraints(new Constraints.Builder().setRequiresCharging(false).setRequiredNetworkType(NetworkType.UNMETERED).build()).build();
         WorkManager.getInstance(this).enqueue(weatherRequest);
@@ -99,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
 
         buttonB.setOnClickListener(v -> getSupportFragmentManager().beginTransaction().replace(R.id.contentLayout, new PartB()).commit());
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.contentLayout, new PartA()).commit();
     }
 
     @Override
@@ -107,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         IntentFilter filter = new IntentFilter("ACTION_WEATHER_DATA");
         LocalBroadcastManager.getInstance(this).registerReceiver(weatherReceiver, filter);
+        getSupportFragmentManager().beginTransaction().replace(R.id.contentLayout, new PartA()).commit();
     }
 
     @Override

@@ -32,6 +32,7 @@ public class WeatherWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
+        Log.d("EOGHAN", " WeatherWorker doWork: ");
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(WeatherService.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -67,7 +68,8 @@ public class WeatherWorker extends Worker {
                 }
             }
         } catch (IOException e) {
-            Log.e("WeatherWorker", "Error fetching weather data", e);
+            Log.e("EOGHAN", "Error fetching weather data", e);
+            Log.e("EOGHAN", "Error fetching weather data" + e.getMessage());
             return Result.failure();
         }
 
