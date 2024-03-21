@@ -32,7 +32,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
     @Override
     public void onBindViewHolder(@NonNull WeatherViewHolder holder, int position) {
         WeatherRecord record = weatherRecords.get(position);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault());
 
         holder.dateTextView.setText(sdf.format(record.getDate()));
         holder.humidityTextView.setText("Humidity: " + record.getHumidity() + "%");

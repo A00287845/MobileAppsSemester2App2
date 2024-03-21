@@ -32,11 +32,8 @@ import java.util.Locale;
 
 
 public class ChartsFragment extends Fragment {
-    private LineChart chartTemperature, chartHumidity, chartWindspeed;
-
 
     public ChartsFragment() {
-        // Required empty public constructor
     }
 
 
@@ -57,9 +54,9 @@ public class ChartsFragment extends Fragment {
     }
 
     private void setupUi() {
-        chartTemperature = requireActivity().findViewById(R.id.chart_temperature);
-        chartHumidity = requireActivity().findViewById(R.id.chart_humidity);
-        chartWindspeed = requireActivity().findViewById(R.id.chart_windSpeed);
+        LineChart chartTemperature = requireActivity().findViewById(R.id.chart_temperature);
+        LineChart chartHumidity = requireActivity().findViewById(R.id.chart_humidity);
+        LineChart chartWindspeed = requireActivity().findViewById(R.id.chart_windSpeed);
         setChartData(chartTemperature, "Temperature", -10f, 40f, "°C");
         setChartData(chartHumidity, "Humidity", 0f, 100f, "%");
         setChartData(chartWindspeed, "Windspeed", 0f, 60f, "km/h");
@@ -90,23 +87,19 @@ public class ChartsFragment extends Fragment {
         lineData.setValueTextColor(Color.WHITE);
         chart.setData(lineData);
 
-        // Customizing the chart's axes
-        // X-Axis (Time)
         XAxis xAxis = chart.getXAxis();
         xAxis.setTextColor(Color.WHITE);
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); // Position the X-axis at the bottom
-        xAxis.setValueFormatter(new DateAxisValueFormatter()); // Custom formatter for date
-        xAxis.setGranularity(1f); // Only show one label at a time to avoid clutter
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setValueFormatter(new DateAxisValueFormatter());
+        xAxis.setGranularity(1f);
 
-        // Y-Axis (Temperature)
         YAxis leftAxis = chart.getAxisLeft();
         leftAxis.setTextColor(Color.WHITE);
-        leftAxis.setValueFormatter(new YAxisValueFormatter(Y_AXIS_LABEL)); // Apply the custom Y-axis formatter
-        leftAxis.setAxisMinimum(AXIS_MINIMUM); // Minimum temperature value
-        leftAxis.setAxisMaximum(AXIS_MAXIMUM); // Maximum temperature value
-        chart.getAxisRight().setEnabled(false); // Disable the right Y-axis
+        leftAxis.setValueFormatter(new YAxisValueFormatter(Y_AXIS_LABEL));
+        leftAxis.setAxisMinimum(AXIS_MINIMUM);
+        leftAxis.setAxisMaximum(AXIS_MAXIMUM);
+        chart.getAxisRight().setEnabled(false);
 
-        // Customizing the legend
         Legend legend = chart.getLegend();
         legend.setForm(Legend.LegendForm.LINE);
         legend.setTextColor(Color.BLACK);
@@ -114,7 +107,7 @@ public class ChartsFragment extends Fragment {
         description.setText(CHART_NAME);
         description.setTextColor(Color.WHITE);
         chart.setDescription(description);
-        chart.invalidate(); // refresh the chart with new data
+        chart.invalidate();
     }
 
     @NonNull
@@ -128,9 +121,7 @@ public class ChartsFragment extends Fragment {
         dataSet.setLineWidth(2f);
         dataSet.setCircleColor(Color.GREEN);
         dataSet.setCircleRadius(3f);
-//        dataSet.setFillColor(Color.RED);
         dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-//        dataSet.setDrawFilled(true);
         return dataSet;
     }
 
@@ -138,7 +129,7 @@ public class ChartsFragment extends Fragment {
         private final SimpleDateFormat mFormat;
 
         public DateAxisValueFormatter() {
-            mFormat = new SimpleDateFormat("dd MMM hh:mm", Locale.ENGLISH);
+            mFormat = new SimpleDateFormat("dd MMM HH:mm", Locale.ENGLISH);
         }
 
         @Override
@@ -157,7 +148,7 @@ public class ChartsFragment extends Fragment {
 
         @Override
         public String getAxisLabel(float value, AxisBase axis) {
-            return value + label; // Append "°C" to the Y-axis value
+            return value + label;
         }
     }
 }
