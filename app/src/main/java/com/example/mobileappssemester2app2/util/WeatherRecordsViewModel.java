@@ -13,7 +13,6 @@ import java.util.ArrayList;
 
 public class WeatherRecordsViewModel extends AndroidViewModel {
     private final MutableLiveData<ArrayList<WeatherRecord>> recordsLiveData = new MutableLiveData<>();
-    private Application application;
 
     public WeatherRecordsViewModel (Application application){
         super(application);

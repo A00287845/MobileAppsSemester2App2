@@ -1,5 +1,6 @@
 package com.example.mobileappssemester2app2;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.mobileappssemester2app2.util.WeatherRecordsViewModel;
 
@@ -38,6 +40,20 @@ public class PartB extends Fragment {
 
         });
 
+        colourButtons();
         return view;
+    }
+
+    private void colourButtons(){
+        Button buttonB = requireActivity().findViewById(R.id.buttonA);
+        Button buttonA = requireActivity().findViewById(R.id.buttonB);
+
+        buttonA.setEnabled(false);
+        buttonB.setEnabled(true);
+
+        buttonA.setBackgroundColor(Color.parseColor("#7093FF"));
+        buttonA.setTextColor(Color.parseColor("#330066"));
+        buttonB.setBackgroundColor(Color.parseColor("#330066"));
+        buttonB.setTextColor(Color.parseColor("#7093FF"));
     }
 }

@@ -1,5 +1,4 @@
 package com.example.mobileappssemester2app2.util;
-import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;

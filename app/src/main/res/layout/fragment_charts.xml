@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ChartsFragment">
+
+    <Button
+        android:id="@+id/exitChartButt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+
+        android:text="Exit" />
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chart_temperature"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight="2"
+        android:background="@drawable/rounded_temperature_chart_bg" />
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chart_humidity"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight="2"
+
+        android:background="@drawable/rounded_humidity_chart_bg" />
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chart_windSpeed"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight="2"
+
+        android:background="@drawable/rounded_windspeed_chart_bg" />
+
+</LinearLayout>

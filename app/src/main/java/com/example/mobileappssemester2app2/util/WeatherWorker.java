@@ -52,6 +52,7 @@ public class WeatherWorker extends Worker {
                     ResponseBody responseBody = response.body();
                     if (responseBody != null) {
                         String jsonResponse = responseBody.string();
+                        Log.d("EOGHAN", "doWork: response ? " + jsonResponse);
                         Intent intent = new Intent("ACTION_WEATHER_DATA");
                         intent.putExtra("weather_data", jsonResponse);
                         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
