@@ -15,6 +15,7 @@
         android:paddingTop="30dp"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
+        android:id="@+id/topLayout"
         >
 
         <LinearLayout
@@ -107,6 +108,7 @@
             android:paddingBottom="10dp"
             android:background="@drawable/rounded_light"
             android:orientation="horizontal"
+            android:id="@+id/bottomLayout"
             app:layout_constraintTop_toBottomOf="@+id/recordsCountTextView">
 
             <LinearLayout
@@ -114,7 +116,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical"
-
+                android:padding="10dp"
                 android:background="@drawable/edging_light"
 >
 
@@ -142,7 +144,7 @@
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:background="@drawable/edging2_light"
-
+                android:padding="10dp"
                 >
 
                 <TextView
@@ -162,6 +164,39 @@
                     android:textSize="30sp"/>
             </LinearLayout>
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_marginTop="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wind Speed"
+            android:textColor="#E3E2E2"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bottomLayout" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/edging"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView5"/>
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textColor="#E3E2E2"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageView2"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
