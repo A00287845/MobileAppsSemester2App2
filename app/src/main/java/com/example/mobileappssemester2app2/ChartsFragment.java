@@ -63,7 +63,7 @@ public class ChartsFragment extends Fragment {
         setChartData(chartTemperature, "Temperature", -10f, 40f, "°C");
         setChartData(chartHumidity, "Humidity", 0f, 100f, "%");
         setChartData(chartWindspeed, "Windspeed", 0f, 60f, "km/h");
-        requireActivity().findViewById(R.id.exitChartButt).setOnClickListener(v-> getParentFragmentManager().beginTransaction().replace(R.id.contentLayout, new PartA()).commit());
+        requireActivity().findViewById(R.id.exitChartButt).setOnClickListener(v-> getParentFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, 0).replace(R.id.contentLayout, new PartA()).commit());
     }
 
     private void setChartData(LineChart chart, String CHART_NAME, float AXIS_MINIMUM, float AXIS_MAXIMUM, String Y_AXIS_LABEL) {

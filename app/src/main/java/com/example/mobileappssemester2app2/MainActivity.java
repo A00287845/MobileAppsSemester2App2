@@ -1,6 +1,9 @@
 package com.example.mobileappssemester2app2;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.work.Constraints;
@@ -18,7 +21,6 @@ import android.util.Log;
 import android.widget.Button;
 
 import com.example.mobileappssemester2app2.pojo.WeatherRecord;
-import com.example.mobileappssemester2app2.util.WeatherPreferences;
 import com.example.mobileappssemester2app2.util.WeatherRecordsViewModel;
 import com.example.mobileappssemester2app2.util.WeatherWorker;
 import com.google.gson.Gson;
@@ -29,7 +31,6 @@ import com.google.gson.JsonObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
@@ -102,10 +103,19 @@ public class MainActivity extends AppCompatActivity {
         Button buttonA = findViewById(R.id.buttonA);
         Button buttonB = findViewById(R.id.buttonB);
 
-        buttonA.setOnClickListener(v -> getSupportFragmentManager().beginTransaction().replace(R.id.contentLayout, new PartA()).commit());
+        buttonA.setOnClickListener(v -> doTransition(new PartA()));
 
-        buttonB.setOnClickListener(v -> getSupportFragmentManager().beginTransaction().replace(R.id.contentLayout, new PartB()).commit());
+        buttonB.setOnClickListener(v -> doTransition(new PartB()));
 
+    }
+
+    private void doTransition(Fragment frag){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+        transaction.setCustomAnimations(R.anim.fade_in, 0);
+        transaction.replace(R.id.contentLayout, frag);
+        transaction.commit();
     }
 
     @Override

@@ -129,7 +129,7 @@ public class PartA extends Fragment {
 
     private void populateCharts() {
         requireActivity().findViewById(R.id.chartLayout).setVisibility(View.VISIBLE);
-        getParentFragmentManager().beginTransaction().replace(R.id.chartLayout, new ChartsFragment()).commit();
+        getParentFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, 0).replace(R.id.chartLayout, new ChartsFragment()).commit();
 
     }
 
