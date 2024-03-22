@@ -30,6 +30,7 @@
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/sumana"
                 android:text="@string/temperature"
                 android:textColor="#E3E2E2"
                 android:textSize="20sp" />
@@ -39,6 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TextView"
+                android:fontFamily="@font/sumana"
                 android:textColor="#E3E2E2"
                 android:textSize="30sp" />
         </LinearLayout>
@@ -56,6 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/humidity"
+                android:fontFamily="@font/sumana"
                 android:textColor="#E3E2E2"
                 android:textSize="20sp" />
 
@@ -64,6 +67,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TextView"
+                android:fontFamily="@font/sumana"
                 android:textColor="#E3E2E2"
                 android:textSize="30sp" />
         </LinearLayout>
@@ -80,6 +84,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:fontFamily="@font/sumana"
             android:gravity="center_horizontal"
             android:text="@string/records"
             android:textColor="#E3E2E2"
@@ -92,6 +97,7 @@
             android:id="@+id/recordsCountTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/sumana"
             android:text="TextView"
             android:textColor="#E3E2E2"
             android:textSize="40sp"
@@ -100,57 +106,57 @@
             app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
         <LinearLayout
+            android:id="@+id/bottomLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
             android:background="@drawable/rounded_light"
             android:orientation="horizontal"
-            android:id="@+id/bottomLayout"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             app:layout_constraintTop_toBottomOf="@+id/recordsCountTextView">
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:padding="10dp"
                 android:background="@drawable/edging_light"
->
+                android:orientation="vertical"
+                android:padding="10dp">
 
                 <TextView
                     android:id="@+id/textView9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/sumana"
                     android:text="@string/from"
                     android:textColor="#E3E2E2"
-                    android:textSize="15sp"
-                    />
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/oldRecordDateTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/sumana"
+                    android:text="TextView"
                     android:textColor="#E3E2E2"
-                    android:textSize="30sp"
-                    android:text="TextView" />
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical"
                 android:background="@drawable/edging2_light"
-                android:padding="10dp"
-                >
+                android:orientation="vertical"
+                android:padding="10dp">
 
                 <TextView
                     android:id="@+id/textView10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/sumana"
                     android:text="To:"
                     android:textColor="#E3E2E2"
                     android:textSize="15sp" />
@@ -159,17 +165,19 @@
                     android:id="@+id/newestRecordDateTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/sumana"
                     android:text="TextView"
                     android:textColor="#E3E2E2"
-                    android:textSize="30sp"/>
+                    android:textSize="20sp" />
             </LinearLayout>
         </LinearLayout>
 
         <TextView
             android:id="@+id/textView5"
-            android:layout_marginTop="50dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/sumana"
             android:text="Wind Speed"
             android:textColor="#E3E2E2"
             android:textSize="30sp"
@@ -178,24 +186,25 @@
             app:layout_constraintTop_toBottomOf="@id/bottomLayout" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/windImage"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:src="@drawable/edging"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView5"/>
+            app:layout_constraintTop_toBottomOf="@id/textView5" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/windspeedTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
             android:textColor="#E3E2E2"
             android:textSize="30sp"
+            android:fontFamily="@font/sumana"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imageView2"/>
+            app:layout_constraintTop_toBottomOf="@id/windImage" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
